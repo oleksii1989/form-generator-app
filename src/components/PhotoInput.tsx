@@ -31,6 +31,9 @@ export default function PhotoInput({
                   e.target.files ? e.target.files[0] : null
                 )
               }
+              onClick={(event) => {
+                (event.target as HTMLInputElement).value = "";
+              }}
             />
             <span className="file-cta">
               <span className="file-label">
