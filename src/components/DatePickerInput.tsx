@@ -32,7 +32,9 @@ export default function DatePickerInput({
           timeFormat="HH:mm"
           timeIntervals={15}
           timeCaption="Time"
-          placeholderText={data.helpText || `Select ${data.title}`}
+          placeholderText={
+            data.helpText || `Select ${data.title.toLowerCase()}`
+          }
         />
       </div>
       {isInvalid && <p className="help is-danger">This field is required</p>}

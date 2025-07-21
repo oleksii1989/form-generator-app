@@ -96,6 +96,7 @@ export default function Form() {
         type: "error",
       });
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
