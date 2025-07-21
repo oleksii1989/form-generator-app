@@ -1,16 +1,39 @@
-export default function SelectInput() {
+import { FormField } from "../utils/parseFormSpec";
+
+interface Props {
+  data: FormField;
+  value: string;
+  onChange: (fieldName: string, value: string) => void;
+  isInvalid: boolean;
+}
+
+export default function SelectInput({
+  data,
+  value,
+  onChange,
+  isInvalid,
+}: Props) {
+  const options = data.dropVals ? JSON.parse(data.dropVals) : {};
+
   return (
-    <div className="field">
-      <label className="label">Subject</label>
+    <>
+      <label className="label">{data.title}</label>
       <div className="control">
-        <div className="select">
-          <select>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+        <div className={`select ${isInvalid ? "is-danger" : ""}`}>
+          <select
+            value={value}
+            onChange={(e) => onChange(data.fieldName, e.target.value)}
+          >
+            {Object.keys(options).map((key) => (
+              <option key={key} value={key}>
+                {options[key]}
+              </option>
+            ))}
           </select>
         </div>
       </div>
-    </div>
+      {isInvalid && <p className="help is-danger">This field is required</p>}
+      {data.helpText && !isInvalid && <p className="help">{data.helpText}</p>}
+    </>
   );
 }

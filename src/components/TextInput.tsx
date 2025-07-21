@@ -1,10 +1,27 @@
-export default function TextInput() {
+import { FormField } from "../utils/parseFormSpec";
+
+interface Props {
+  data: FormField;
+  value: string;
+  onChange: (fieldName: string, value: string) => void;
+  isInvalid: boolean;
+}
+
+export default function TextInput({ data, value, onChange, isInvalid }: Props) {
   return (
-    <div className="field">
-      <label className="label">Name</label>
+    <>
+      <label className="label">{data.title}</label>
       <div className="control">
-        <input className="input" type="text" placeholder="Text input" />
+        <input
+          className={`input ${isInvalid ? "is-danger" : ""}`}
+          type="text"
+          value={value}
+          onChange={(e) => onChange(data.fieldName, e.target.value)}
+          placeholder={`Enter ${data.title.toLowerCase()}`}
+        />
       </div>
-    </div>
+      {isInvalid && <p className="help is-danger">This field is required</p>}
+      {data.helpText && !isInvalid && <p className="help">{data.helpText}</p>}
+    </>
   );
 }
