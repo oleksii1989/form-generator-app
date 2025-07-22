@@ -3,8 +3,8 @@ import { FormField } from "../utils/parseFormSpec";
 
 interface Props {
   data: FormField;
-  value: string;
-  onChange: (fieldName: string, value: string) => void;
+  value: string | number | null;
+  onChange: (fieldName: string, value: number | null) => void;
   isInvalid: boolean;
 }
 
@@ -18,16 +18,14 @@ export default function NumberInput({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-
     if (inputValue === "") {
       setLocalError(null);
-      onChange(data.fieldName, inputValue);
+      onChange(data.fieldName, null);
       return;
     }
-
     if (/^-?\d+$/.test(inputValue)) {
       setLocalError(null);
-      onChange(data.fieldName, inputValue);
+      onChange(data.fieldName, parseInt(inputValue, 10));
     } else {
       setLocalError("Please enter a valid integer");
     }
@@ -41,7 +39,7 @@ export default function NumberInput({
           className={`input ${isInvalid ? "is-danger" : ""}`}
           type="number"
           step="1"
-          value={value}
+          value={value != null ? value : ""}
           onChange={handleInputChange}
           placeholder={data.helpText || `Enter ${data.title.toLowerCase()}`}
         />

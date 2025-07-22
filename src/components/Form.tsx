@@ -10,7 +10,7 @@ import { useState } from "react";
 import Notification from "./Notification";
 
 interface FormData {
-  [key: string]: string | Date | File | null;
+  [key: string]: string | number | Date | File | null;
 }
 
 interface NotificationState {
@@ -28,7 +28,7 @@ export default function Form() {
 
   const handleChange = (
     fieldName: string,
-    value: string | Date | File | null
+    value: string | number | Date | File | null
   ) => {
     setFormData((prev) => ({ ...prev, [fieldName]: value }));
     if (errors[fieldName]) {
