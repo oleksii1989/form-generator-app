@@ -162,11 +162,15 @@ export default function Form() {
                 )}
                 {field.commentField === 1 && (
                   <CommentInput
-                    data={field}
+                    data={{
+                      ...field,
+                      commentFieldName:
+                        field.commentFieldName || `${field.fieldName}Note`,
+                    }}
                     value={
-                      field.commentFieldName
-                        ? (formData[field.commentFieldName] as string) || ""
-                        : ""
+                      (formData[
+                        field.commentFieldName || `${field.fieldName}Note`
+                      ] as string) || ""
                     }
                     onChange={handleChange}
                   />
