@@ -23,11 +23,11 @@ export default function NumberInput({
       onChange(data.fieldName, null);
       return;
     }
-    if (/^-?\d+$/.test(inputValue)) {
+    if (/^\d+$/.test(inputValue)) {
       setLocalError(null);
       onChange(data.fieldName, parseInt(inputValue, 10));
     } else {
-      setLocalError("Please enter a valid integer");
+      setLocalError("Please enter a positive integer");
     }
   };
 
